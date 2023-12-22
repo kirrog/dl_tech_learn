@@ -31,7 +31,6 @@ DEVICE = 'cuda'
 VIDEOS_PER_LABEL = 5
 VIDEO_DATASET_PATH = ROOT_DIR + 'videos_dataset.csv'
 VIDEO_DIR = ROOT_DIR + 'fixed_videos/'
-LABELS = os.listdir(VIDEO_DIR)
 PREDICTIONS_FILE = ROOT_DIR + 'video_label_predictions.csv'
 
 ###################################
@@ -155,20 +154,13 @@ def reduce_video(video_object):
 ###################################
 
 videos_df = pd.read_csv(VIDEO_DATASET_PATH,sep=';')
-
 emb_model, emb_processor, fcls_model = init_models(EMBEDDER_PATH, EMBEDDER_PROCESSOR_PATH, FRAME_CLASSIFIER_PATH)
 
 ###################################
 
-references = []
-predictions = []
-pred_distributions = []
-used_links = []
-elapsed_time = []
+info = []
 for label in LABELS:
     selected_links = videos_df[videos_df['category'] == label]['links'].to_list()[:VIDEOS_PER_LABEL]
-    references += [label] * VIDEOS_PER_LABEL
-    used_links += selected_links
 
     for i, link in enumerate(selected_links):
         print(f"{label} | {link} | {i} / {len(selected_links)}")
@@ -176,18 +168,21 @@ for label in LABELS:
         path_to_cur_video = f"{VIDEO_DIR}{label}/{link}"
         pred_label, label_distr = classify_video(path_to_cur_video, emb_model, emb_processor, fcls_model)
         e_time = time()
-        elapsed_time.append(round(e_time-s_time, 3))
-        predictions.append(pred_label)
-        pred_distributions.append(label_distr)
+
+        print("Output: ", pred_label, label_distr)
+
+        info.append([
+            link, label, pred_label,
+            label_distr, round(e_time-s_time, 3)
+        ])
 
 ###################################
 
-test_df = pd.DataFrame((used_links, references, predictions, pred_distributions, elapsed_time), 
-                       columns=['links','refs','preds','distrs','elapsed_time (sec)'])
+test_df = pd.DataFrame(info, columns=['links','refs','preds','distrs','elapsed_time (sec)'])
 test_df.to_csv(PREDICTIONS_FILE, sep=';',index=False)
 
 ###################################
 
-y_true = list(map(lambda v: LABEL2ID[v], references))
-y_pred = list(map(lambda v: LABEL2ID[v], predictions))
+y_true = list(map(lambda v: LABEL2ID[v], test_df['refs']))
+y_pred = list(map(lambda v: LABEL2ID[v], test_df['preds']))
 print(classification_report(y_true, y_pred, target_names=LABELS))
