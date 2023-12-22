@@ -12,8 +12,9 @@ import pandas as pd
 
 #################################
 
-M2F_MODEL_NAME = "./pretrained_model/facebook-m2f_swin_large"
-FRAMES_DIR = './frames'
+ROOT_DIR = '/home/ubuntu/DL/'
+M2F_MODEL_NAME = ROOT_DIR + "pretrained_model/facebook-m2f_swin_large"
+FRAMES_DIR = ROOT_DIR + 'frames'
 LABEL_NAMES = os.listdir(FRAMES_DIR)
 DEVICE = 'cuda'
 
@@ -81,14 +82,21 @@ for frames_dir_name in LABEL_NAMES:
 #################################
 print("START FRAME CONVERTION")
 
-tmp_df = []
-for label_name in LABEL_NAMES:
+embeddings_size = m2f_model.bb_features
+df_columns = [f"x{i} "for i in range(embeddings_size)] + ['labels']
+df = pd.DataFrame(columns=df_columns)
+
+for label_name in LABEL_NAMES[3:]:
     process = tqdm(range(len(dataset[label_name])))
+    tmp_df = []
     for i in process:
         process.set_description_str(label_name)
         output = m2f_model(dataset[label_name][i].to(DEVICE))
         image_embedding = output.view(-1, 1536).detach().cpu().numpy().tolist()
-        tmp_df.append((image_embedding[0], label_name))
-    df = pd.DataFrame(tmp_df,columns=["embeddings","labels"])
+        tmp_df.append(image_embedding[0] + [label_name])
+    
+    tmp_df = pd.DataFrame(tmp_df,columns=df_columns)
+    df = pd.concat([df, tmp_df]).reset_index(drop=True)
+    
     df.to_csv("frames_embeddings.csv", index=False, sep=';')
     print("cur df size: ", df.shape)
