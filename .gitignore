@@ -166,3 +166,5 @@ lab2/pretrained_model
 lab2/raw_videos
 lab2/frames_embeddings.csv
 lab2/frame_classifier_model
+lab2/log.txt
+lab2/video_test_log.txt

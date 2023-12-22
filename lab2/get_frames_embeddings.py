@@ -9,14 +9,17 @@ import albumentations as A
 import cv2
 from random import random
 import pandas as pd
+from collections import Counter
 
 #################################
 
 ROOT_DIR = '/home/ubuntu/DL/'
+OUTPUT_FILE = "frames_embeddings.csv"
 M2F_MODEL_NAME = ROOT_DIR + "pretrained_model/facebook-m2f_swin_large"
 FRAMES_DIR = ROOT_DIR + 'frames'
 LABEL_NAMES = os.listdir(FRAMES_DIR)
 DEVICE = 'cuda'
+Y_COL = 'labels'
 
 #################################
 
@@ -82,21 +85,25 @@ for frames_dir_name in LABEL_NAMES:
 #################################
 print("START FRAME CONVERTION")
 
-embeddings_size = m2f_model.bb_features
-df_columns = [f"x{i} "for i in range(embeddings_size)] + ['labels']
-df = pd.DataFrame(columns=df_columns)
+EMBEDDINGS_SIZE = m2f_model.bb_features
+df_columns = [f"x{i} "for i in range(EMBEDDINGS_SIZE)] + [Y_COL]
+df = None
 
-for label_name in LABEL_NAMES[3:]:
+for label_name in LABEL_NAMES:
     process = tqdm(range(len(dataset[label_name])))
-    tmp_df = []
+    tmp = []
     for i in process:
         process.set_description_str(label_name)
         output = m2f_model(dataset[label_name][i].to(DEVICE))
-        image_embedding = output.view(-1, 1536).detach().cpu().numpy().tolist()
-        tmp_df.append(image_embedding[0] + [label_name])
+        image_embedding = output.view(-1, EMBEDDINGS_SIZE).detach().cpu().numpy().tolist()
+        tmp.append(image_embedding[0] + [label_name])
     
-    tmp_df = pd.DataFrame(tmp_df,columns=df_columns)
-    df = pd.concat([df, tmp_df]).reset_index(drop=True)
+    tmp_df = pd.DataFrame(tmp,columns=df_columns)
+    if df is None:
+        df = tmp_df
+    else:
+        df = pd.concat([df, tmp_df]).reset_index(drop=True)
     
-    df.to_csv("frames_embeddings.csv", index=False, sep=';')
+    print(Counter(df[Y_COL]))
     print("cur df size: ", df.shape)
+    df.to_csv(f"{ROOT_DIR}{OUTPUT_FILE}", index=False, sep=';')
