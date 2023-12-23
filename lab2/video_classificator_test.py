@@ -104,7 +104,7 @@ def classify_video(video_path, emb_model, emb_processor, fcls_model):
     print(round(e_time - s_time, 3), "sec")
 
     print("Done!")
-    return frequent_label[0], label_probs
+    return frequent_label[0], label_probs, selected_frame_ids
 
 def load_video(video_path):
     return cv2.VideoCapture(video_path)
@@ -166,19 +166,22 @@ for label in LABELS:
         print(f"{label} | {link} | {i} / {len(selected_links)}")
         s_time = time()
         path_to_cur_video = f"{VIDEO_DIR}{label}/{link}"
-        pred_label, label_distr = classify_video(path_to_cur_video, emb_model, emb_processor, fcls_model)
+        pred_label, label_distr, selected_frame_ids = classify_video(path_to_cur_video, emb_model, emb_processor, fcls_model)
         e_time = time()
 
         print("Output: ", pred_label, label_distr)
 
         info.append([
             link, label, pred_label,
-            label_distr, round(e_time-s_time, 3)
+            label_distr, round(e_time-s_time, 3), 
+            len(selected_frame_ids)
         ])
 
 ###################################
 
-test_df = pd.DataFrame(info, columns=['links','refs','preds','distrs','elapsed_time (sec)'])
+test_df = pd.DataFrame(info, columns=['links','refs','preds','distrs',
+                                      'elapsed_time (sec)', 
+                                      'classified frames amount'])
 test_df.to_csv(PREDICTIONS_FILE, sep=';',index=False)
 
 ###################################
