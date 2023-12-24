@@ -65,7 +65,7 @@ BATCH_SIZE = 32
 DEVICE = 'cuda'
 EPOCHS = 30
 LR = 2e-5
-LAYERS_TO_HOLD = ['23', '22', '21', '20', '19', 'pooler']
+LAYERS_TO_HOLD = ['23', '22', '21', 'pooler']
 
 print("BATCH_SIZE: ", BATCH_SIZE)
 print("LR: ", LR)
