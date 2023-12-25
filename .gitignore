@@ -169,4 +169,4 @@ lab2/frame_classifier_model
 lab2/log.txt
 lab2/video_test_log.txt
 lab4/medics
-lab4/saved_model/
+lab4/saved_model/ner_model
