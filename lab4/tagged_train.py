@@ -1,6 +1,5 @@
 import time
 import torch
-from typing import List
 import os
 from tqdm import tqdm
 from torch.utils.data import DataLoader
@@ -129,6 +128,9 @@ def compute_metrics(predictions, labels):
     ]
 
     results = METRIC.compute(predictions=true_predictions, references=true_labels)
+
+    print(results)
+
     return {
         "precision": results["overall_precision"],
         "recall": results["overall_recall"],
@@ -294,7 +296,7 @@ for epoch in range(EPOCHS):
     print(metrics)
 
     # Save best model
-    if metrics['f1'] > best_score:
+    if metrics['f1'] >= best_score:
         torch.save(MODEL.state_dict(), f"{OUTPUT_DIR}/ner_model")
         best_score = metrics['f1']
 
@@ -303,6 +305,6 @@ for epoch in range(EPOCHS):
     metrics['train_loss'] = tr_loss/nb_tr_steps
     metrics['epoch'] = epoch
     print(type(metrics))
-    with open(f"{LOG_DIR}/epoch{epoch}", 'w', encoding='utf-8') as fd:
+    with open(f"{LOG_DIR}/epoch{epoch}.json", 'w', encoding='utf-8') as fd:
         fd.write(json.dumps(metrics, indent=2, ensure_ascii=False))
     print("Ready!")

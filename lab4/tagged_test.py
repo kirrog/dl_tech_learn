@@ -16,6 +16,8 @@ import json
 from crf import CRF
 import numpy as np
 import torch.nn as nn
+from sklearn.metrics import f1_score, accuracy_score
+from functools import reduce
 
 from dataclasses import dataclass
 from typing import List
@@ -51,13 +53,15 @@ ID2LABEL = {i: label for i, label in enumerate(LABEL_LIST)}
 ##############################################
 
 ROOT_DIR = '/home/ubuntu/DL'
+#ROOT_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/dl_tech_learn/lab4'
 
 TEST_FILE = ROOT_DIR + '/medics/test.txt'
 ROBERTA_PATH = ROOT_DIR + '/RuBioRoBERTa'
+#ROBERTA_PATH = '/home/dzigen/Desktop/medics2023/NLP_MODULE/models/RuBioRoBERTa'
 FINETUNED_MODEL_PATH = ROOT_DIR + '/saved_model/ner_model'
 
 
-BATCH_SIZE = 32
+BATCH_SIZE = 4
 DEVICE = 'cuda'
 EPOCHS = 1
 LR = 2e-5
@@ -120,9 +124,22 @@ def compute_metrics(predictions, labels):
         for prediction, label in zip(predictions, labels)
     ]
 
-    results = METRIC.compute(predictions=true_predictions, references=true_labels)
-    return dict(results)
+    acc_f1 = 0
+    for pred,label in zip(true_predictions, true_labels):
+        acc_f1 += f1_score(pred,label, average='micro')
+    
+    print("f1 micro mean:", round(acc_f1 / len(true_predictions),3))
 
+    results = METRIC.compute(predictions=true_predictions, references=true_labels)
+
+    print(results)
+
+    return {
+        "precision": results["overall_precision"],
+        "recall": results["overall_recall"],
+        "f1": results["overall_f1"],
+        "accuracy": results["overall_accuracy"],
+    }
 class NerDataset(Dataset):
 
     def __init__(self, file, label2idx, tokenizer):
@@ -217,7 +234,7 @@ for batch in test_tqdm:
         loss = MODEL(input_ids=batch['input_ids'], 
                          attention_mask=batch['attention_mask'],
                          labels=batch['labels'], mode='train')
-        pred_labels = MODEL(input_ids=batch['input_ids'], 
+        pred = MODEL(input_ids=batch['input_ids'], 
                                 attention_mask=batch['attention_mask'], mode='eval')
 
     test_loss += loss.item()
@@ -229,21 +246,25 @@ for batch in test_tqdm:
     show_dict = {'Test cur mean Loss': f'{test_loss/nb_test_steps:.6f}'}
     test_tqdm.set_postfix(show_dict)
 
-    predictions = pred_labels
     labels = batch["labels"].to('cpu').numpy().tolist()
 
     #print(predictions)
     #print(labels)
 
     true_labels += labels
-    pred_labels += predictions
+    pred_labels += pred
 
 print("Test loss: {}".format(test_loss/nb_test_steps))
+print("pred/gold labels size: ", len(pred_labels), len(labels))
+
+
 metrics = compute_metrics(pred_labels, true_labels)
 print(metrics)
 print(type(metrics))
 
 # Save epoch metrics
+metrics['true_labels'] = true_labels
+metrics['pred_labels'] = pred_labels
 metrics['test_loss'] = test_loss/nb_test_steps
 with open(f"{ROOT_DIR}/test_metrics.json", 'w', encoding='utf-8') as fd:
     fd.write(json.dumps(metrics, indent=2, ensure_ascii=False))
