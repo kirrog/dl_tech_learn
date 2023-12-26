@@ -170,3 +170,5 @@ lab2/log.txt
 lab2/video_test_log.txt
 lab4/medics
 lab4/saved_model/ner_model
+lab3/PoetryCorpus
+lab3/pretrained_models
