@@ -12,6 +12,10 @@
 
 Изначально изображение нарезается на непересекающиеся патчи, также как и в ViT, но в данном случае размеры патча уже не 16х16, а 4х4, что позволяет улавливать более мелкие детали на изображении. Разбиением занимается блок *Patch Partition*, после чего $\frac{H}{4}\times\frac{W}{4}$ патчей размерностью $4\times4\times3=48$ с помощью *Linear Embedding* слоя переходят во внутреннюю размерность, обозначенную *C*
 
+*С* зависит от реализации. Авторы предложили 4 варианта архитектуры с различной размерностью *C* и различным количеством Swin Transformer Block на каждой стадии. Параметры архитектур подбирались для дальнейшего сопоставления с CNN аналогами. Параметры для Swin-B подбирались, чтобы иметь размер модели и сложность вычислений, аналогичные ViTB/DeiT-B. Сложность Swin-T и Swin-S аналогична сложности ResNet-50 (DeiT-S) и ResNet-101, соответственно.
+
+![](./images/ArchitectureVariants.png)
+
 Swin Transformer Block
 
 Представляет из себя два последовательнных трансформер блока с MLP (Multilayer Perceptron)
@@ -85,3 +89,4 @@ SwinsTranformer более удачная архитектура, чем ViT, т
 ## Использованные источники
 * [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030)
 * [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929)
+* [Official implementation for "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows"](https://github.com/microsoft/Swin-Transformer/blob/main/models/swin_transformer.py)
