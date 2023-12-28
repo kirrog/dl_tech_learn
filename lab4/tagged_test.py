@@ -52,12 +52,10 @@ ID2LABEL = {i: label for i, label in enumerate(LABEL_LIST)}
 
 ##############################################
 
-ROOT_DIR = '/home/ubuntu/DL'
-#ROOT_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/dl_tech_learn/lab4'
+ROOT_DIR = '.'
 
 TEST_FILE = ROOT_DIR + '/medics/test.txt'
 ROBERTA_PATH = ROOT_DIR + '/RuBioRoBERTa'
-#ROBERTA_PATH = '/home/dzigen/Desktop/medics2023/NLP_MODULE/models/RuBioRoBERTa'
 FINETUNED_MODEL_PATH = ROOT_DIR + '/saved_model/ner_model'
 
 

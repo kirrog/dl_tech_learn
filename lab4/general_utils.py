@@ -13,15 +13,11 @@ import torch
 import torch.nn as nn
 from crf import CRF
 
-# !!! Указан абсолютный путь !!!
-sys.path.insert(0, "/home/dzigen/Desktop/ITMO/sem1/DLtech/dl_tech_learn/lab4")
 from t_extraction_utils import TAGGED_NAMES, TLABEL_LIST, extract_tagged_features, TMODEL_STATE_PATH
 
 ###########################################
 
-# !!! Указан абсолютный путь !!!
-BASE_MODEL_DIR = '/home/dzigen/Desktop/medics2023/NLP_MODULE/models'
-BASE_MODEL_PATH = BASE_MODEL_DIR + '/RuBioRoBERTa'
+BASE_MODEL_PATH = './RuBioRoBERTa'
 
 OUTPUT_DIR = './'
 

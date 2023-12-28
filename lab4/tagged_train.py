@@ -50,7 +50,8 @@ print(ID2LABEL)
 
 #############################################
 
-ROOT_DIR = '/home/ubuntu/DL'
+#ROOT_DIR = '/home/ubuntu/DL'
+ROOT_DIR = '.'
 
 TRAIN_FILE = ROOT_DIR + '/medics/train.txt'
 TEST_FILE = ROOT_DIR + '/medics/test.txt'

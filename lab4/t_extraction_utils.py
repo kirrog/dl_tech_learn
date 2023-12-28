@@ -9,8 +9,7 @@ import json
 from functools import reduce
 import pandas as pd
 
-# !!! Указан абсолютный путь !!!
-TAGGED_MODEL_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/dl_tech_learn/lab4/saved_model'
+TAGGED_MODEL_DIR = './saved_model'
 TMODEL_STATE_PATH = TAGGED_MODEL_DIR + '/ner_model'
 
 TAGGED_NAMES = ["КТР","ЧСС","ТВП","ТРИКУСП РЕГУРГ","ХГЧ","PAPP-A","АФП", "Ингибин А",
