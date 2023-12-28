@@ -13,7 +13,7 @@ from collections import Counter
 
 #################################
 
-ROOT_DIR = '/home/ubuntu/DL/'
+ROOT_DIR = './'
 OUTPUT_FILE = "frames_embeddings.csv"
 M2F_MODEL_NAME = ROOT_DIR + "pretrained_model/facebook-m2f_swin_large"
 FRAMES_DIR = ROOT_DIR + 'frames'

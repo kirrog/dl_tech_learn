@@ -14,7 +14,7 @@ from sklearn.metrics import classification_report
 
 ###################################
 
-ROOT_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/dl_tech_learn/lab2/'
+ROOT_DIR = './'
 
 LABELS = ['travel','art_music','food','history']
 ID2LABEL = {i:v for i, v in enumerate(LABELS)}
@@ -29,9 +29,9 @@ EMBEDDINGS_SIZE = 1536
 DEVICE = 'cuda'
 
 VIDEOS_PER_LABEL = 5
-VIDEO_DATASET_PATH = ROOT_DIR + 'videos_dataset.csv'
-VIDEO_DIR = ROOT_DIR + 'fixed_videos/'
-PREDICTIONS_FILE = ROOT_DIR + 'video_label_predictions.csv'
+VIDEO_DATASET_PATH = ROOT_DIR + 'datasets/videos_dataset.csv'
+VIDEO_DIR = ROOT_DIR + 'datasets/fixed_videos/'
+PREDICTIONS_FILE = ROOT_DIR + 'datasets/video_label_predictions.csv'
 
 ###################################
 

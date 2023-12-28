@@ -159,15 +159,13 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-lab2/catboost_info
-lab2/fixed_videos
-lab2/frames
+lab2/datasets/fixed_videos
+lab2/datasets/frames
+lab2/datasets/raw_videos
+lab2/datasets/frames_embeddings.csv
 lab2/pretrained_model
-lab2/raw_videos
-lab2/frames_embeddings.csv
 lab2/frame_classifier_model
-lab2/log.txt
-lab2/video_test_log.txt
+lab2/metrics/catboost_info
 lab4/medics
 lab4/saved_model/ner_model
 lab3/PoetryCorpus

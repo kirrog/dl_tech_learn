@@ -10,9 +10,9 @@ from collections import Counter
 ###################################
 
 
-ROOT_DIR = '/home/ubuntu/DL/'
-DATASET_PATH = ROOT_DIR + 'frames_embeddings.csv'
-OUTPUT_DIR = ROOT_DIR
+ROOT_DIR = './'
+DATASET_PATH = '/datasets/frames_embeddings.csv'
+OUTPUT_DIR = ROOT_DIR + 'metrics/'
 SAVED_MODEL_PATH = OUTPUT_DIR + 'frame_classifier_model'
 METRICS_FILE = OUTPUT_DIR + 'evl_metrics.json'
 EMBEDDINGS_SIZE = 1536

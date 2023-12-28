@@ -8,10 +8,10 @@ import numpy as np
 
 ################################
 
-RAW_VIDEOS_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/lab2/raw_videos'
-VIDEOS_DATASET_PATH = '/home/dzigen/Desktop/ITMO/sem1/DLtech/lab2/videos_dataset.csv'
+RAW_VIDEOS_DIR = './datasets/raw_videos'
+VIDEOS_DATASET_PATH = './datasets/videos_dataset.csv'
 LABEL_NAMES = os.listdir(RAW_VIDEOS_DIR)
-FIXED_VIDEOS_DIR = '/home/dzigen/Desktop/ITMO/sem1/DLtech/lab2/fixed_videos'
+FIXED_VIDEOS_DIR = './datasets/fixed_videos'
 
 video_links_df = pd.read_csv(VIDEOS_DATASET_PATH, sep=';')
 

@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 ###################################
 
-CLEANED_DATA_FILE = '/home/dzigen/Desktop/ITMO/sem1/DLtech/lab2/cleaned_data.csv'
+CLEANED_DATA_FILE = './datasets/cleaned_data.csv'
 VIDEOS_PER_LABEL = 900
 
 data_df = pd.read_csv(CLEANED_DATA_FILE)
@@ -31,7 +31,7 @@ print(set(SELECTED_LINKS['art_music']).intersection(set(SELECTED_LINKS['history'
 
 ###################################
     
-OUTPUT_PATH = '/home/dzigen/Desktop/ITMO/sem1/DLtech/lab2/videos'
+OUTPUT_PATH = './datasets/raw_videos'
 if not os.path.exists(OUTPUT_PATH):
 	os.mkdir(OUTPUT_PATH)
     
