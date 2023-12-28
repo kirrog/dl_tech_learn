@@ -8,20 +8,26 @@ import json
 from torch.utils.data import DataLoader, Dataset
 import pandas as pd
 import tqdm
+import torch.nn as nn
+from auto_gptq import AutoGPTQForCausalLM
+import gc
+from time import time
 
 ##############################
 
-BASE_MODEL = '/home/ubuntu/DL/pretrained_models/ruGPT3_5_13B_8bit'
-OUTPUT_DIR = '/home/ubuntu/DL/'
-TRAIN_FILE = '/home/ubuntu/DL/data/train_part.csv'
-EVAL_FILE = '/home/ubuntu/DL/data/test_part.csv'
+ROOT_DIR = '/home/ubuntu/DL/'
+
+BASE_MODEL = ROOT_DIR + 'pretrained_models/fffrrt_ruGPT-3.5-13B-GPTQ4'
+OUTPUT_DIR = ROOT_DIR
+TRAIN_FILE = ROOT_DIR + 'data/train_part.csv'
+EVAL_FILE = ROOT_DIR + 'data/test_part.csv'
 LOG_DIR = OUTPUT_DIR + 'logs/'
 ADAPTER_DIR = LOG_DIR + 'ai3_gpt3_5_8bit_adapter'
 
 DEVICE = 'cuda:0'
-BATCH_SIZE = 1
-EPOCHS = 12
-LR = 3e-4
+BATCH_SIZE = 4
+EPOCHS = 18
+LR = 2e-4
 
 print("BATCH_SIZE: ", BATCH_SIZE)
 print("LR: ", LR)
@@ -29,8 +35,6 @@ print("EPOCHS: ", EPOCHS)
 print("DEVICE: ", DEVICE)
 
 ##############################
-
-from auto_gptq import AutoGPTQForCausalLM
 
 print("Load tokenizer")
 TOKENIZER = AutoTokenizer.from_pretrained(BASE_MODEL)
@@ -43,13 +47,24 @@ CONFIG = IA3Config(
         feedforward_modules=['c_fc'])
 
 print("Load base model")
-#MODEL = AutoModelForCausalLM.from_pretrained(BASE_MODEL, #load_in_8bit=True, 
-#                                             use_safetensors=True, device_map={'': 0})
-MODEL = AutoGPTQForCausalLM.from_quantized(BASE_MODEL, device=DEVICE)
 
-# frozing full base model
+s_time = time()
+MODEL = AutoGPTQForCausalLM.from_quantized(BASE_MODEL, device=DEVICE, use_safetensors=True)
+e_time = time()
+print(f"Elapsed time: {round(e_time-s_time, 5)} sec.")
+
 for param in MODEL.parameters():
-    param.requires_grad = False
+  param.requires_grad = False  # freeze the model - train adapters later
+  if param.ndim == 1:
+    # cast the small parameters (e.g. layernorm) to fp16 for stability
+    param.data = param.data.to(torch.float16)
+
+#MODEL.gradient_checkpointing_enable()  # reduce number of stored activations
+#MODEL.enable_input_require_grads()
+
+class CastOutputToFloat(nn.Sequential):
+  def forward(self, x): return super().forward(x).to(torch.float32)
+MODEL.lm_head = CastOutputToFloat(MODEL.lm_head)
 
 print("Wraps model to ia3")
 IA3_MODEL = get_peft_model(MODEL, CONFIG)
@@ -79,41 +94,41 @@ print_trainable_parameters(IA3_MODEL)
 OPTIMIZER = torch.optim.Adam(IA3_MODEL.parameters(), 
                              lr=LR)
 
-
-input_ids = torch.tensor(np.random.randint(30, 50, size=(1,1,94)))
-print(MODEL(input_ids=input_ids))
-
 ##############################
 
 def train_one(model, loader, optimizer):
     """Standard PyTorch training, one epoch"""
     model.train()
-    acc_loss, counter = [], 1
+    acc_loss, counter = 0, 0
     process = tqdm.tqdm(loader)
     for batch in process:
-        print(batch['input_ids'].size(), batch['attention_mask'].size(), batch['labels'].size())
-
         for k, v in batch.items():
             batch[k] = v.to(DEVICE)
-
-        print(batch['input_ids'].size(), batch['attention_mask'].size(), batch['labels'].size())
         
         optimizer.zero_grad()
         out = model(input_ids=batch['input_ids'],
                     attention_mask=batch['attention_mask'],
                     labels=batch['labels'])
-        
+
         loss = out['loss']
+        
+        loss.backward()
+        OPTIMIZER.step()
+
         acc_loss += loss.item()
+        counter += 1
         show_dict = {'Train cur mean Loss': f'{acc_loss/counter:.6f}'}
         process.set_postfix(show_dict)
+
+        gc.collect()
+        torch.cuda.empty_cache()
 
     return round(acc_loss/counter, 5)
 
 def eval_one(model, loader):
     """Standard PyTorch evaluation, one epoch"""
     model.eval()
-    acc_loss, counter = [], 1
+    acc_loss, counter = 0, 0
     process = tqdm.tqdm(loader)
     for batch in process:
         for k, v in batch.items():
@@ -126,8 +141,12 @@ def eval_one(model, loader):
             
         loss = out['loss']
         acc_loss += loss.item()
+        counter += 1
         show_dict = {'Val cur mean Loss': f'{acc_loss/counter:.6f}'}
         process.set_postfix(show_dict)
+        
+        gc.collect()
+        torch.cuda.empty_cache()
 
     return round(acc_loss/counter, 5)
 
@@ -146,29 +165,39 @@ class PoemsDataset(Dataset):
     def formate_sample(self, index):
         text, title = self.df[self.text_col][index], self.df[self.title_col][index] 
         
-        formated_sttring = f'Название: "{title}". Стихотворение: {text} {self.end_of_text_token}'        
-        encoded_string = self.tokenizer(formated_sttring, return_tensors='pt', add_special_tokens=True)
+        formated_string = f'Название: "{title}". Стихотворение: {text} {self.end_of_text_token}'        
 
-        return {
-            'input_ids': encoded_string['input_ids'],
-            'attention_mask': encoded_string['attention_mask'],
-            'labels': encoded_string['input_ids']
-        }
+        return formated_string        
 
     def __getitem__(self, index):
         return self.formate_sample(index)
+
+def collate_fn(data):
+    encoded_batch = TOKENIZER(data, return_tensors='pt', add_special_tokens=False, 
+                              padding=True)
+
+    return {
+        'input_ids': encoded_batch['input_ids'],
+        'attention_mask': encoded_batch['attention_mask'],
+        'labels': encoded_batch['input_ids']
+        }
 
 ##############################
 print("Load dataset")
 
 train_ds = PoemsDataset(TRAIN_FILE,TOKENIZER)
-train_dataloader = DataLoader(train_ds, shuffle=True, batch_size=1)
+train_dataloader = DataLoader(train_ds, shuffle=True, 
+                              batch_size=BATCH_SIZE, collate_fn=collate_fn)
 
 eval_ds = PoemsDataset(EVAL_FILE,TOKENIZER)
-eval_dataloader = DataLoader(eval_ds, shuffle=False, batch_size=1)
+eval_dataloader = DataLoader(eval_ds, shuffle=False, 
+                             batch_size=BATCH_SIZE, collate_fn=collate_fn)
 
 ##############################
 print("Start training")
+
+gc.collect()
+torch.cuda.empty_cache()
 
 best_eval_loss, best_epoch = None, None
 for i_epoch in range(EPOCHS):
@@ -195,7 +224,7 @@ for i_epoch in range(EPOCHS):
 
      #
      m_object = json.dumps(metrics, indent=2, ensure_ascii=False)
-     with open(LOG_DIR + f'epoch_{i_epoch}', 'w',encoding='utf-8') as fd:
+     with open(LOG_DIR + f'epoch_{i_epoch}.json', 'w',encoding='utf-8') as fd:
           fd.write(m_object)
 
 ##############################
