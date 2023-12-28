@@ -22,7 +22,7 @@ OUTPUT_DIR = ROOT_DIR
 TRAIN_FILE = ROOT_DIR + 'data/train_part.csv'
 EVAL_FILE = ROOT_DIR + 'data/test_part.csv'
 LOG_DIR = OUTPUT_DIR + 'logs/'
-ADAPTER_DIR = LOG_DIR + 'ai3_gpt3_5_8bit_adapter'
+ADAPTER_DIR = LOG_DIR + 'ai3_gpt3_5_4bit_adapter'
 
 DEVICE = 'cuda:0'
 BATCH_SIZE = 4

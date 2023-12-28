@@ -1,2 +1,0 @@
-ValueError: QuantLinear() does not have a parameter or a buffer named weight.
-
