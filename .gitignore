@@ -170,3 +170,4 @@ lab4/medics
 lab4/saved_model/ner_model
 lab3/PoetryCorpus
 lab3/pretrained_models
+lab3/metrics/logs/ai3_gpt3_5_4bit_adapter
