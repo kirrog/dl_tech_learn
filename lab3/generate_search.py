@@ -12,6 +12,9 @@ import torch
 import torch.nn as nn
 import random 
 import os
+from peft import prepare_model_for_int8_training
+from transformers import AutoTokenizer, AutoModelForCausalLM
+
 random.seed(10)
 
 import logging
@@ -23,13 +26,20 @@ os.environ["PYTHONUNBUFFERED"] = "true"
 
 print("=== SET HYPERP ===")
 
+SYSTEM_PROPMPT = (
+    "Ты - поэт, который чётко следует инструкциям."
+    "Твоя задача - написать одно стихотворение в стиле указанного автора по заданному названию. "
+    "Будь внимателен и не пиши ничего лишнего. "
+    "Напиши только сам стих без указания дополниетльной информации к нему."
+)
+
 ROOT_DIR = '/home/ubuntu/DL/'
 OUTPUT_DIR = ROOT_DIR + 'gen_search/'
 METRIC = evaluate.load("chrf")
-MODEL_PATH = ROOT_DIR + 'pretrained_models/fffrrt_ruGPT-3.5-13B-GPTQ4'
-ADAPTER_PATH = ROOT_DIR + 'logs/ai3_gpt3_5_4bit_adapter'
+MODEL_PATH = ROOT_DIR + 'pretrained_models/ruGPT3_5'
+ADAPTER_PATH = ROOT_DIR + 'logs/ai3_gpt3_5_8bit_adapter'
 DEVICE = 'cuda:0'
-MAX_SEQ_LEN = 400
+MAX_SEQ_LEN = 600
 REFS_FILE = ROOT_DIR + 'data/test_part.csv'
 SAMPLE_AMOUNT = 10
 REF_TEXT_LEN_LIMIT = 1000
@@ -89,9 +99,11 @@ class SearchUtils:
         df = df.loc[selected_ids,:].reset_index(drop=True)
 
         #
-        self.prompt_texts = [f'Название: "{df["title"][i]}". Стихотворение:' for i in range(df.shape[0])]
+        self.prompt_texts = [f"###Система:\n{SYSTEM_PROPMPT}\n\n\n\n###Автор:\n{df['author'][i]}\n\n###Название:\n{df['title'][i]}\n\n###Стихотворение:\n" for i in range(df.shape[0])]
+
         #
-        self.ref_texts = [[f"{prompt_t} {df['text'][i]}"] for i, prompt_t in enumerate(self.prompt_texts)]
+        self.ref_texts = [[f"{prompt_t}{df['text'][i]}\n\n"] for i, prompt_t in enumerate(self.prompt_texts)]
+        
         #
         s_time = time()
         self.enc_prompts = [self.tokenizer(prompt_t, return_tensors='pt', add_special_tokens=False) 
@@ -106,22 +118,13 @@ class SearchUtils:
         self.tokenizer = AutoTokenizer.from_pretrained(model_path)
 
         s_time = time()
-        self.model = AutoGPTQForCausalLM.from_quantized(model_path, device=DEVICE, 
-                                                        use_safetensors=True)
+        self.model = AutoModelForCausalLM.from_pretrained(model_path,
+                                                          device_map=DEVICE, load_in_8bit=True,
+                                                          torch_dtype=torch.float16,use_cache=False)
+        self.model = prepare_model_for_int8_training(self.model)
         self.model = PeftModel.from_pretrained(self.model, adapter_path)
         e_time = time()
         print(f"Elapsed time: {round(e_time-s_time, 5)} sec.")
-        
-        #
-        for param in self.model.parameters():
-            param.requires_grad = False  # freeze the model - train adapters later
-            if param.ndim == 1:
-                # cast the small parameters (e.g. layernorm) to fp16 for stability
-                param.data = param.data.to(torch.float16)
-
-        class CastOutputToFloat(nn.Sequential):
-            def forward(self, x): return super().forward(x).to(torch.float32)
-        self.model.lm_head = CastOutputToFloat(self.model.lm_head)
 
         #
         self.model.eval()
@@ -153,7 +156,7 @@ class SearchUtils:
                 gen_encode = self.model.generate(max_length=self.max_gen_seq_len, 
                                                  num_return_sequences=1, 
                                                  eos_token_id=self.tokenizer.eos_token_id,
-                                                 pad_token_id=self.tokenizer.eos_token_id
+                                                 pad_token_id=self.tokenizer.eos_token_id,
                                                  **enc_prompt,**params)
             e_time = time()
             print(f"[{round(e_time-s_time, 3)} sec.]")
@@ -237,17 +240,17 @@ utils = SearchUtils(MODEL_PATH, ADAPTER_PATH, REFS_FILE, MAX_SEQ_LEN)
 print("=== START SEARCHING... ===")
 
 #
-#BM_NAME, BM_TRIALS_AMOUNT = "beamsearch", 1
+#BM_NAME, BM_TRIALS_AMOUNT = "beamsearch", 15
 #print(f"== {BM_NAME}: {BM_TRIALS_AMOUNT} trials amount" )
 #search(BM_NAME, utils, BM_TRIALS_AMOUNT)
 
 #
-S_NAME, S_TRIALS_AMOUNT = "sampling", 10
+S_NAME, S_TRIALS_AMOUNT = "sampling", 15
 print(f"== {S_NAME}: {S_TRIALS_AMOUNT} trials amount")
 search(S_NAME, utils, S_TRIALS_AMOUNT)
 
 #
-CS_NAME, CS_TRIALS_AMOUNT = "contrastivesearch", 10
+CS_NAME, CS_TRIALS_AMOUNT = "contrastivesearch", 15
 print(f"== {CS_NAME}: {CS_TRIALS_AMOUNT} trials amount")
 search(CS_NAME, utils, CS_TRIALS_AMOUNT)
 

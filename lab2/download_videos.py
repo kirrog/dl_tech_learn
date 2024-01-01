@@ -37,7 +37,8 @@ if not os.path.exists(OUTPUT_PATH):
     
 ###################################
 
-downloading_label_links = list(SELECTED_LINKS.keys())[-1::-1][:2]
+#downloading_label_links = list(SELECTED_LINKS.keys())[-1::-1][:2]
+downloading_label_links = list(SELECTED_LINKS.keys())
 for video_labels in downloading_label_links:
 	process = tqdm(SELECTED_LINKS[video_labels])
 	
