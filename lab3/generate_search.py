@@ -39,7 +39,7 @@ METRIC = evaluate.load("chrf")
 MODEL_PATH = ROOT_DIR + 'pretrained_models/ruGPT3_5'
 ADAPTER_PATH = ROOT_DIR + 'logs/ai3_gpt3_5_8bit_adapter'
 DEVICE = 'cuda:0'
-MAX_SEQ_LEN = 600
+MAX_SEQ_LEN = 400
 REFS_FILE = ROOT_DIR + 'data/test_part.csv'
 SAMPLE_AMOUNT = 10
 REF_TEXT_LEN_LIMIT = 1000
@@ -62,7 +62,6 @@ class SearchUtils:
             'do_sample': True,
             'top_k': trial.suggest_int('top_k', 0, 51, step=5),
             'top_p': trial.suggest_float('top_p',0.5, 0.96, step=0.05),
-            'early_stopping': True,
             'repetition_penalty': trial.suggest_float('repetition_penalty', 0.0, 10, step=0.1),
             'temperature': trial.suggest_float('temperature', 0.0, 15.0, step=0.2),
             'no_repeat_ngram_size': trial.suggest_categorical('no_repeat_ngram_size', [0,1,2,3,4])
@@ -71,9 +70,6 @@ class SearchUtils:
         'contrastivesearch': lambda trial: {
             'top_k': trial.suggest_int('top_k', 2, 50, step=2),
             'penalty_alpha': trial.suggest_float('penalty_alpha', 0.5, 0.9, step=0.05),
-            'early_stopping': True,
-            'repetition_penalty': trial.suggest_float('repetition_penalty', 0.0, 10, step=0.1),
-            'temperature': trial.suggest_float('temperature', 0.0, 15.0, step=0.2),
             'no_repeat_ngram_size': trial.suggest_categorical('no_repeat_ngram_size', [0,1,2,3,4])
         }
     }
@@ -120,7 +116,7 @@ class SearchUtils:
         s_time = time()
         self.model = AutoModelForCausalLM.from_pretrained(model_path,
                                                           device_map=DEVICE, load_in_8bit=True,
-                                                          torch_dtype=torch.float16,use_cache=False)
+                                                          torch_dtype=torch.float16,use_cache=True)
         self.model = prepare_model_for_int8_training(self.model)
         self.model = PeftModel.from_pretrained(self.model, adapter_path)
         e_time = time()
@@ -188,13 +184,9 @@ class SearchUtils:
         
         #
         print("== GENERATING SAMPLES...")
-        try:
-            pred_texts = self.generate_samples(self.enc_prompts, 
+        pred_texts = self.generate_samples(self.enc_prompts, 
                                                selected_params)
             
-        # invalid generation parameters values
-        except ValueError:
-            return 0
         #
         print("== COMPUTING METRIC...")
         chrf_score = self.compute_metrics(self.ref_texts, 
@@ -245,9 +237,9 @@ print("=== START SEARCHING... ===")
 #search(BM_NAME, utils, BM_TRIALS_AMOUNT)
 
 #
-S_NAME, S_TRIALS_AMOUNT = "sampling", 15
-print(f"== {S_NAME}: {S_TRIALS_AMOUNT} trials amount")
-search(S_NAME, utils, S_TRIALS_AMOUNT)
+#S_NAME, S_TRIALS_AMOUNT = "sampling", 15
+#print(f"== {S_NAME}: {S_TRIALS_AMOUNT} trials amount")
+#search(S_NAME, utils, S_TRIALS_AMOUNT)
 
 #
 CS_NAME, CS_TRIALS_AMOUNT = "contrastivesearch", 15
