@@ -193,7 +193,7 @@
 
 ![](RackMultipart20240115-1-wj9p6k_html_807630b619f30d30.png)
 
-**Список использованных источников**
+## **Список использованных источников**
 
 1. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding - [Электронный ресурс] // arxiv.org. – 2023. – URL: [https://arxiv.org/abs/1810.04805](https://arxiv.org/abs/1810.04805) (дата обращения: 28.12.23)
 2. RoBERTa: A Robustly Optimized BERT Pretraining Approach // arxiv.org. – 2023. – URL: [https://arxiv.org/abs/1907.11692](https://arxiv.org/abs/1907.11692) (дата обращения: 28.12.23)
@@ -250,10 +250,8 @@ Transition представляет из себя квадратную матр�
 
 где примеры из тренировочного датасета.
 
-**Список использованных источников**
+## **Список использованных источников**
 
 1. An Introduction to Conditional Random Fields - [Электронный ресурс] // arxiv.org. – 2023. – URL: [https://arxiv.org/abs/1011.4088](https://arxiv.org/abs/1011.4088) (дата обращения: 28.12.23)
 2. Michael Collins: Log-Linear Models, MEMMs, and CRFs – URL: [https://www.cs.columbia.edu/~mcollins/crf.pdf](https://www.cs.columbia.edu/~mcollins/crf.pdf) (дата обращения: 28.12.23)
 3. ADVANCED: MAKING DYNAMIC DECISIONS AND THE BI-LSTM CRF - [Электронный ресурс] // pytorch.org – 2023.URL: [https://pytorch.org/tutorials/beginner/nlp/advanced\_tutorial.html](https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html)(дата обращения: 28.12.23)
-
-ИТМО 2023
