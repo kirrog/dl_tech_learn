@@ -1,0 +1,19 @@
+{
+  "auto_mapping": null,
+  "base_model_name_or_path": null,
+  "fan_in_fan_out": false,
+  "feedforward_modules": [
+    "c_fc"
+  ],
+  "inference_mode": true,
+  "init_ia3_weights": true,
+  "modules_to_save": null,
+  "peft_type": "IA3",
+  "revision": null,
+  "target_modules": [
+    "c_attn",
+    "c_proj",
+    "c_fc"
+  ],
+  "task_type": "CAUSAL_LM"
+}

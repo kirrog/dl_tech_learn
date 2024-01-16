@@ -1,0 +1,265 @@
+=== SET HYPERP ===
+=== LOAD UTILS CLASS ===
+Loading checkpoint shards:   0%|          | 0/6 [00:00<?, ?it/s]Loading checkpoint shards:  17%|█▋        | 1/6 [00:43<03:35, 43.19s/it]Loading checkpoint shards:  33%|███▎      | 2/6 [01:24<02:48, 42.05s/it]Loading checkpoint shards:  50%|█████     | 3/6 [02:01<01:59, 39.69s/it]Loading checkpoint shards:  67%|██████▋   | 4/6 [02:37<01:16, 38.28s/it]Loading checkpoint shards:  83%|████████▎ | 5/6 [03:13<00:37, 37.55s/it]Loading checkpoint shards: 100%|██████████| 6/6 [03:25<00:00, 28.79s/it]Loading checkpoint shards: 100%|██████████| 6/6 [03:25<00:00, 34.24s/it]
+/home/ubuntu/.local/lib/python3.11/site-packages/peft/utils/other.py:141: FutureWarning: prepare_model_for_int8_training is deprecated and will be removed in a future version. Use prepare_model_for_kbit_training instead.
+  warnings.warn(
+[I 2024-01-02 03:43:40,181] A new study created in memory with name: no-name-9263600d-228f-4e78-b90d-b06ba3414884
+/home/ubuntu/.local/lib/python3.11/site-packages/transformers/generation/utils.py:1518: UserWarning: You have modified the pretrained model configuration to control generation. This is a deprecated strategy to control generation and will be removed soon, in a future version. Please use and modify the model generation configuration (see https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration )
+  warnings.warn(
+[I 2024-01-02 03:43:40,412] Trial 0 finished with value: 0.0 and parameters: {'top_k': 28, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:40,542] Trial 1 finished with value: 0.0 and parameters: {'top_k': 2, 'penalty_alpha': 0.55, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:40,662] Trial 2 finished with value: 0.0 and parameters: {'top_k': 28, 'penalty_alpha': 0.55, 'no_repeat_ngram_size': 4}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:40,775] Trial 3 finished with value: 0.0 and parameters: {'top_k': 4, 'penalty_alpha': 0.75, 'no_repeat_ngram_size': 2}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:40,887] Trial 4 finished with value: 0.0 and parameters: {'top_k': 42, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 4}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:40,999] Trial 5 finished with value: 0.0 and parameters: {'top_k': 36, 'penalty_alpha': 0.8, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+Elapsed time: 206.33668 sec.
+== SELECTED REF IDS: 
+[1288, 967, 1301, 464, 1808, 1832, 1463, 360, 1170, 741]
+Elapsed time: 0.01453 sec.
+10 10 10
+=== START SEARCHING... ===
+== contrastivesearch: 15 trials amount
+====== START SEARCH (contrastivesearch) ======
+== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 1 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 2 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 3 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 4 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 5 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 6 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 7 | sample - 0 / 10]
+[I 2024-01-02 03:43:41,120] Trial 6 finished with value: 0.0 and parameters: {'top_k': 50, 'penalty_alpha': 0.75, 'no_repeat_ngram_size': 1}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,236] Trial 7 finished with value: 0.0 and parameters: {'top_k': 10, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,348] Trial 8 finished with value: 0.0 and parameters: {'top_k': 44, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,460] Trial 9 finished with value: 0.0 and parameters: {'top_k': 48, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 1}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,590] Trial 10 finished with value: 0.0 and parameters: {'top_k': 20, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 0}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,711] Trial 11 finished with value: 0.0 and parameters: {'top_k': 20, 'penalty_alpha': 0.65, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:41,831] Trial 12 finished with value: 0.0 and parameters: {'top_k': 30, 'penalty_alpha': 0.65, 'no_repeat_ngram_size': 3}. Best is trial 0 with value: 0.0.
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 8 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 9 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 10 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 11 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 12 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 13 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 14 | sample - 0 / 10]
+[I 2024-01-02 03:43:41,952] Trial 13 finished with value: 0.0 and parameters: {'top_k': 16, 'penalty_alpha': 0.6, 'no_repeat_ngram_size': 2}. Best is trial 0 with value: 0.0.
+[I 2024-01-02 03:43:42,077] Trial 14 finished with value: 0.0 and parameters: {'top_k': 6, 'penalty_alpha': 0.8500000000000001, 'no_repeat_ngram_size': 0}. Best is trial 0 with value: 0.0.
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...== SELECTING SAMPLES... 
+== GENERATING SAMPLES...
+== [trial - 15 | sample - 0 / 10]
+{'input_ids': tensor([[34204,     8, 43663,    31,   204,  3637,   424, 15940,    17,  1112,
+         34709,  3052,  7249,  7996,    19,   667, 25914,  7929,   424,  7796,
+          2436, 29052,   283,  9149, 37108,  7517,   336, 17047,  1198, 49072,
+            19, 13664,  1692, 27672,   288,   322, 45511,  1470, 23695,    19,
+           686, 48505,   705,   609,  9703,   770, 22003,  2874,   309,   303,
+          7751,  3402,   294,  3797,    19,   204,   204,   204,   204, 34204,
+             8, 24810,    31,   204, 47571, 37174,  9907,   204,   204, 34204,
+             8, 26203,  2006,    31,   204,  2533,  3834,   204,   204, 34204,
+             8, 43040, 11105,   475,    31,   204]], device='cuda:0'), 'attention_mask': tensor([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]], device='cuda:0')}
+== GENERATING...Number of finished trials:  15
+
+== TRIALS INFO:
+[FrozenTrial(number=0, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 181695), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 412087), params={'top_k': 28, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=0, value=None), FrozenTrial(number=1, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 412452), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 542362), params={'top_k': 2, 'penalty_alpha': 0.55, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=1, value=None), FrozenTrial(number=2, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 542671), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 662251), params={'top_k': 28, 'penalty_alpha': 0.55, 'no_repeat_ngram_size': 4}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=2, value=None), FrozenTrial(number=3, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 662553), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 774939), params={'top_k': 4, 'penalty_alpha': 0.75, 'no_repeat_ngram_size': 2}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=3, value=None), FrozenTrial(number=4, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 775291), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 887130), params={'top_k': 42, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 4}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=4, value=None), FrozenTrial(number=5, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 887428), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 40, 999614), params={'top_k': 36, 'penalty_alpha': 0.8, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=5, value=None), FrozenTrial(number=6, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 40, 999896), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 119979), params={'top_k': 50, 'penalty_alpha': 0.75, 'no_repeat_ngram_size': 1}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=6, value=None), FrozenTrial(number=7, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 120279), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 235906), params={'top_k': 10, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=7, value=None), FrozenTrial(number=8, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 236183), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 348835), params={'top_k': 44, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=8, value=None), FrozenTrial(number=9, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 349089), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 460831), params={'top_k': 48, 'penalty_alpha': 0.5, 'no_repeat_ngram_size': 1}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=9, value=None), FrozenTrial(number=10, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 461083), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 590461), params={'top_k': 20, 'penalty_alpha': 0.9, 'no_repeat_ngram_size': 0}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=10, value=None), FrozenTrial(number=11, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 590744), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 711365), params={'top_k': 20, 'penalty_alpha': 0.65, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=11, value=None), FrozenTrial(number=12, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 711635), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 831399), params={'top_k': 30, 'penalty_alpha': 0.65, 'no_repeat_ngram_size': 3}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=12, value=None), FrozenTrial(number=13, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 831657), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 41, 951941), params={'top_k': 16, 'penalty_alpha': 0.6, 'no_repeat_ngram_size': 2}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=13, value=None), FrozenTrial(number=14, state=1, values=[0.0], datetime_start=datetime.datetime(2024, 1, 2, 3, 43, 41, 952195), datetime_complete=datetime.datetime(2024, 1, 2, 3, 43, 42, 76913), params={'top_k': 6, 'penalty_alpha': 0.8500000000000001, 'no_repeat_ngram_size': 0}, user_attrs={}, system_attrs={}, intermediate_values={}, distributions={'top_k': IntDistribution(high=50, log=False, low=2, step=2), 'penalty_alpha': FloatDistribution(high=0.9, log=False, low=0.5, step=0.05), 'no_repeat_ngram_size': CategoricalDistribution(choices=(0, 1, 2, 3, 4))}, trial_id=14, value=None)]
+==
+
+====== END SEARCH (contrastivesearch) ======
+====== SEARCH SAVED ======
+=== DONE! ===
